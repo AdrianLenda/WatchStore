@@ -28,7 +28,7 @@
 
         public string Manufacturer { get; set; }
         public string ReleaseDate { get; set; }
-        public string DiscountPrice { get; set; }
+        public decimal DiscountPrice { get; set; }
         // Kolekcja zamówień, które zawierają ten zegarek
         public ICollection<OrderItem> OrderItems { get; set; }
     }
