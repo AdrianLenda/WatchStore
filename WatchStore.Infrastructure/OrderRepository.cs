@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using WatchStore.Domain;
 
 namespace WatchStore.Infrastructure
@@ -44,6 +42,11 @@ namespace WatchStore.Infrastructure
         {
             _dbSet.Remove(order);
             await _context.SaveChangesAsync();
+        }
+
+        public Task<IEnumerable<Order>> GetByUserIdAsync(int userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
