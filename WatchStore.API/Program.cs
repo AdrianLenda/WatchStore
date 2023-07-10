@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using WatchStore.Infrastructure.Data;
+using WatchStore.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
