@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using WatchStore.Domain;
+using WatchStore.Application.DTOs;
+using WatchStore.Application;
 
-namespace WatchStore.Application
+public class MappingProfile : Profile
 {
-    internal class MappingProfile
+    public MappingProfile()
     {
+        CreateMap<User, UserDto>().ReverseMap();
+        CreateMap<Order, OrderDto>().ReverseMap();
+        CreateMap<Watch, WatchDto>().ReverseMap();
+        CreateMap<OrderItem, OrderItemDto>().ReverseMap();
     }
 }

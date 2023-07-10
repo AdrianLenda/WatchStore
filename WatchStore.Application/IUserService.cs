@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace WatchStore.Application
 {
-    internal interface IUserService
+    public interface IUserService
     {
+        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task<User> GetUserByIdAsync(int id);
+        Task<User> CreateUserAsync(User user);
+        Task<User> UpdateUserAsync(User user);
+        Task<bool> DeleteUserAsync(int id);
     }
 }

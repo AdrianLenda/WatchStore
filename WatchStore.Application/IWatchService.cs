@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace WatchStore.Application
 {
-    internal interface IWatchService
+    public interface IWatchService
     {
+        Task<IEnumerable<Watch>> GetAllWatchesAsync(string sortBy, string filter);
+        Task<Watch> GetWatchByIdAsync(int id);
+        Task<Watch> AddWatchAsync(Watch watch);
+        Task<Watch> UpdateWatchAsync(Watch watch);
+        Task DeleteWatchAsync(int id);
     }
 }
