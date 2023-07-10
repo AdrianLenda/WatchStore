@@ -18,12 +18,12 @@ namespace WatchStore.Infrastructure
 
         public async Task<IEnumerable<Order>> GetAllAsync()
         {
-            return await _dbSet.Include(o => o.User).Include(o => o.Watch).ToListAsync();
+            return await _dbSet.Include(o => o.OrderItems).ThenInclude(oi => oi.Watch).ToListAsync();
         }
 
         public async Task<Order> GetByIdAsync(int id)
         {
-            return await _dbSet.Include(o => o.User).Include(o => o.Watch).FirstOrDefaultAsync(o => o.Id == id);
+            return await _dbSet.Include(o => o.User).Include(o => o.OrderItems).ThenInclude(oi => oi.Watch).FirstOrDefaultAsync(o => o.Id == id);
         }
 
         public async Task AddAsync(Order order)
@@ -44,9 +44,11 @@ namespace WatchStore.Infrastructure
             await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Order>> GetByUserIdAsync(int userId)
+        public async Task<IEnumerable<Order>> GetByUserIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await _dbSet
+                .Where(order => order.UserId == userId)
+                .ToListAsync();
         }
     }
 }

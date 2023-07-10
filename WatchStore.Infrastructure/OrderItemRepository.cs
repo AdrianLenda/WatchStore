@@ -43,10 +43,12 @@ namespace WatchStore.Infrastructure
             _dbSet.Remove(orderItem);
             await _context.SaveChangesAsync();
         }
-
-        public Task<IEnumerable<OrderItem>> GetByOrderIdAsync(int orderId)
+        public async Task<IEnumerable<OrderItem>> GetByOrderIdAsync(int orderId)
         {
-            throw new NotImplementedException();
+            return await _dbSet
+                .Where(orderItem => orderItem.OrderId == orderId)
+                .ToListAsync();
         }
+
     }
 }
