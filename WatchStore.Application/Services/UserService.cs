@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using WatchStore.Application.DTOs;
+using WatchStore.Application.IServices;
+using WatchStore.Infrastructure;
 using WatchStore.Domain;
-using WatchStore.Domain.Repositories;
 
 namespace WatchStore.Application.Services
 {

@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using WatchStore.Application.DTOs;
+using WatchStore.Application.IServices;
+using WatchStore.Infrastructure;
+using WatchStore.Domain;
 
 namespace WatchStore.Application.Services
 {
@@ -48,5 +50,17 @@ namespace WatchStore.Application.Services
             var order = await _orderRepository.GetByIdAsync(id);
             return await _orderRepository.DeleteAsync(order);
         }
+        public async Task<OrderDto> GetOrderByIdAsync(int orderId)
+        {
+            var order = await _orderRepository.GetByIdAsync(orderId);
+            return _mapper.Map<OrderDto>(order);
+        }
+
+        public async Task<IList<OrderDto>> GetOrdersByCustomerIdAsync(int customerId)
+        {
+            var orders = await _orderRepository.GetOrdersByCustomerIdAsync(customerId);
+            return _mapper.Map<IList<OrderDto>>(orders);
+        }
+
     }
 }

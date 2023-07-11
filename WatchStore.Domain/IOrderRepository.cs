@@ -14,6 +14,7 @@ namespace WatchStore.Domain
         // Pobierz zamówienie o danym ID
         Task<Order> GetByIdAsync(int id);
 
+
         // Pobierz wszystkie zamówienia danego użytkownika
         Task<IEnumerable<Order>> GetByUserIdAsync(int userId);
 

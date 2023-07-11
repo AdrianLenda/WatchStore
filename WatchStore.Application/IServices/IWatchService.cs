@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WatchStore.Infrastructure;
+using WatchStore.Domain;
 
-namespace WatchStore.Application.Services
+namespace WatchStore.Application.IServices
 {
     public interface IWatchService
     {
