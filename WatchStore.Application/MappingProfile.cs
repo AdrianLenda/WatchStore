@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using WatchStore.Domain;
 using WatchStore.Application.DTOs;
-using WatchStore.Application;
 
 public class MappingProfile : Profile
 {

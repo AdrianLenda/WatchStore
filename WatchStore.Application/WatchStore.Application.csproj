@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="11.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WatchStore.Domain\WatchStore.Domain.csproj" />
+    <ProjectReference Include="..\WatchStore.Infrastructure\WatchStore.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

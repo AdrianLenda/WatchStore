@@ -5,7 +5,7 @@ using AutoMapper;
 using WatchStore.Domain;
 using WatchStore.Domain.Repositories;
 
-namespace WatchStore.Application
+namespace WatchStore.Application.Services
 {
     public class UserService : IUserService
     {

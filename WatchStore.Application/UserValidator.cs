@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using WatchStore.Application;
 using WatchStore.Application.DTOs;
 
 public class UserValidator : AbstractValidator<UserDto>
