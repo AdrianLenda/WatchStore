@@ -14,11 +14,8 @@ namespace WatchStore.Domain
         // Nazwa użytkownika
         public string Username { get; set; }
 
-        // Hasło użytkownika (zahaszowane)
-        public string PasswordHash { get; set; }
-
-        // Sól używana do haszowania hasła
-        public string PasswordSalt { get; set; }
+        // Hasło użytkownika
+        public string Password { get; set; }
 
         // Rola użytkownika (np. "User", "Admin")
         public string Role { get; set; }
