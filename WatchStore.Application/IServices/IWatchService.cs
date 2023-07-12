@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using WatchStore.Infrastructure;
 using WatchStore.Domain;
+using WatchStore.Application.DTOs;
 
 namespace WatchStore.Application.IServices
 {
     public interface IWatchService
     {
-        Task<IEnumerable<Watch>> GetAllWatchesAsync(string sortBy, string filter);
-        Task<Watch> GetWatchByIdAsync(int id);
-        Task<Watch> AddWatchAsync(Watch watch);
-        Task<Watch> UpdateWatchAsync(Watch watch);
+        Task<IEnumerable<WatchDto>> GetAllWatchesAsync(string sortBy, string filter);
+        Task<WatchDto> GetWatchByIdAsync(int id);
+        Task<WatchDto> AddWatchAsync(WatchDto watch);
+        Task<WatchDto> UpdateWatchAsync(WatchDto watch);
         Task DeleteWatchAsync(int id);
     }
 }

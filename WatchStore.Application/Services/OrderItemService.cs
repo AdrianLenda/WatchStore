@@ -46,7 +46,15 @@ namespace WatchStore.Application.Services
 
         public async Task DeleteOrderItemAsync(int id)
         {
-            await _orderItemRepository.DeleteAsync(id);
+            var orderItem = await _orderItemRepository.GetByIdAsync(id);
+            if (orderItem != null)
+            {
+                await _orderItemRepository.DeleteAsync(orderItem);
+            }
+            else
+            {
+                throw new Exception("OrderItem not found");
+            }
         }
     }
 }

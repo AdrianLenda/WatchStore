@@ -19,42 +19,35 @@ namespace WatchStore.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<WatchDto>> GetAllAsync()
+        public async Task<IEnumerable<WatchDto>> GetAllWatchesAsync(string sortBy, string filter)
         {
-            var watches = await _watchRepository.GetAllAsync();
+            var watches = await _watchRepository.GetAllAsync(sortBy, filter);
             return _mapper.Map<IEnumerable<WatchDto>>(watches);
         }
 
-        public async Task<WatchDto> GetByIdAsync(int id)
+        public async Task<WatchDto> GetWatchByIdAsync(int id)
         {
             var watch = await _watchRepository.GetByIdAsync(id);
             return _mapper.Map<WatchDto>(watch);
         }
 
-        public async Task<WatchDto> CreateAsync(WatchDto watchDto)
+        public async Task<WatchDto> AddWatchAsync(WatchDto watchDto)
         {
             var watch = _mapper.Map<Watch>(watchDto);
-            await _watchRepository.CreateAsync(watch);
+            await _watchRepository.AddAsync(watch);
             return _mapper.Map<WatchDto>(watch);
         }
 
-        public async Task<WatchDto> UpdateAsync(WatchDto watchDto)
+        public async Task<WatchDto> UpdateWatchAsync(WatchDto watchDto)
         {
             var watch = _mapper.Map<Watch>(watchDto);
             await _watchRepository.UpdateAsync(watch);
             return _mapper.Map<WatchDto>(watch);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task DeleteWatchAsync(int id)
         {
-            var watch = await _watchRepository.GetByIdAsync(id);
-            if (watch == null)
-            {
-                return false;
-            }
-
-            await _watchRepository.DeleteAsync(watch);
-            return true;
+            await _watchRepository.DeleteAsync(id);
         }
     }
 }

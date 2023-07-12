@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WatchStore.Domain
+namespace WatchStore.Domain.Interfaces
 {
     public interface IOrderItemRepository
     {

@@ -15,45 +15,41 @@ namespace WatchStore.Application.Services
 
         public UserService(IUserRepository userRepository, IMapper mapper)
         {
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _userRepository = userRepository;
+            _mapper = mapper;
         }
 
-        public async Task<UserDto> GetUserByIdAsync(int id)
+        public async Task<User> GetUserByIdAsync(int userId)
         {
-            var user = await _userRepository.GetByIdAsync(id);
-            return _mapper.Map<UserDto>(user);
+            var user = await _userRepository.GetByIdAsync(userId);
+            return _mapper.Map<User>(user);
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
+        public async Task<IList<User>> GetAllUsersAsync()
         {
             var users = await _userRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<UserDto>>(users);
+            return _mapper.Map<IList<User>>(users);
         }
 
-        public async Task<UserDto> CreateUserAsync(UserDto userDto)
+        public async Task<User> CreateUserAsync(User user)
         {
-            var user = _mapper.Map<User>(userDto);
-            user = await _userRepository.CreateAsync(user);
-            return _mapper.Map<UserDto>(user);
+            var createdUser = await _userRepository.AddAsync(_mapper.Map<User>(user));
+            await _userRepository.SaveChangesAsync();
+            return _mapper.Map<User>(createdUser);
         }
 
-        public async Task<UserDto> UpdateUserAsync(UserDto userDto)
+        public async Task<User> UpdateUserAsync(User user)
         {
-            var user = _mapper.Map<User>(userDto);
-            user = await _userRepository.UpdateAsync(user);
-            return _mapper.Map<UserDto>(user);
+            var updatedUser = _userRepository.Update(_mapper.Map<User>(user));
+            await _userRepository.SaveChangesAsync();
+            return _mapper.Map<User>(updatedUser);
         }
 
-        public async Task<bool> DeleteUserAsync(int id)
+        public async Task DeleteUserAsync(int userId)
         {
-            var user = await _userRepository.GetByIdAsync(id);
-            if (user == null)
-            {
-                return false;
-            }
-
-            return await _userRepository.DeleteAsync(user);
+            var user = await _userRepository.GetByIdAsync(userId);
+            _userRepository.Delete(user);
+            await _userRepository.SaveChangesAsync();
         }
     }
 }

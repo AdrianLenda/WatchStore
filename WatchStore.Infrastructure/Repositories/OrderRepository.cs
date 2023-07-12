@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WatchStore.Domain;
 
-namespace WatchStore.Infrastructure
+namespace WatchStore.Infrastructure.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
@@ -49,6 +49,11 @@ namespace WatchStore.Infrastructure
             return await _dbSet
                 .Where(order => order.UserId == userId)
                 .ToListAsync();
+        }
+        public async Task CreateAsync(Order order)
+        {
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
         }
     }
 }

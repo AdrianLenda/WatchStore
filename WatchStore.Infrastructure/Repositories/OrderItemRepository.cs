@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WatchStore.Domain;
 
-namespace WatchStore.Infrastructure
+namespace WatchStore.Infrastructure.Repositories
 {
     public class OrderItemRepository : IOrderItemRepository
     {

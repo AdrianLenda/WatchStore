@@ -19,48 +19,36 @@ namespace WatchStore.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<OrderDto>> GetAllAsync()
-        {
-            var orders = await _orderRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<OrderDto>>(orders);
-        }
-
-        public async Task<OrderDto> GetByIdAsync(int id)
-        {
-            var order = await _orderRepository.GetByIdAsync(id);
-            return _mapper.Map<OrderDto>(order);
-        }
-
-        public async Task<OrderDto> CreateAsync(OrderDto orderDto)
-        {
-            var order = _mapper.Map<Order>(orderDto);
-            await _orderRepository.CreateAsync(order);
-            return _mapper.Map<OrderDto>(order);
-        }
-
-        public async Task<OrderDto> UpdateAsync(OrderDto orderDto)
-        {
-            var order = _mapper.Map<Order>(orderDto);
-            await _orderRepository.UpdateAsync(order);
-            return _mapper.Map<OrderDto>(order);
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var order = await _orderRepository.GetByIdAsync(id);
-            return await _orderRepository.DeleteAsync(order);
-        }
         public async Task<OrderDto> GetOrderByIdAsync(int orderId)
         {
             var order = await _orderRepository.GetByIdAsync(orderId);
             return _mapper.Map<OrderDto>(order);
         }
 
-        public async Task<IList<OrderDto>> GetOrdersByCustomerIdAsync(int customerId)
+        public async Task<IList<OrderDto>> GetOrdersByUserIdAsync(int userId)
         {
-            var orders = await _orderRepository.GetOrdersByCustomerIdAsync(customerId);
+            var orders = await _orderRepository.GetByUserIdAsync(userId);
             return _mapper.Map<IList<OrderDto>>(orders);
         }
 
+        public async Task<OrderDto> CreateOrderAsync(OrderDto orderDto)
+        {
+            var order = _mapper.Map<Order>(orderDto);
+            await _orderRepository.CreateAsync(order);
+            return _mapper.Map<OrderDto>(order);
+        }
+
+        public async Task<OrderDto> UpdateOrderAsync(OrderDto orderDto)
+        {
+            var order = _mapper.Map<Order>(orderDto);
+            await _orderRepository.UpdateAsync(order);
+            return _mapper.Map<OrderDto>(order);
+        }
+
+        public async Task DeleteOrderAsync(int orderId)
+        {
+            var order = await _orderRepository.GetByIdAsync(orderId);
+            await _orderRepository.DeleteAsync(order);
+        }
     }
 }
