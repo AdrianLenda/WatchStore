@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WatchStore.Infrastructure;
 using WatchStore.Application;
 using Microsoft.AspNetCore.Identity;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 

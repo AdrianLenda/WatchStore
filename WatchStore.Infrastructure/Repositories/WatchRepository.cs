@@ -39,10 +39,43 @@ namespace WatchStore.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Watch watch)
+        public async Task DeleteAsync(int id)
         {
-            _dbSet.Remove(watch);
-            await _context.SaveChangesAsync();
+            var watch = await _context.Watches.FindAsync(id);
+            if (watch != null)
+            {
+                _context.Watches.Remove(watch);
+                await _context.SaveChangesAsync();
+            }
+        }
+        public async Task<IEnumerable<Watch>> GetAllAsync(string sortBy, string filter)
+        {
+            IQueryable<Watch> query = _context.Watches;
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                query = query.Where(w => w.Brand.Contains(filter));
+            }
+
+            switch (sortBy)
+            {
+                case "name":
+                    query = query.OrderBy(w => w.Brand);
+                    break;
+                case "price":
+                    query = query.OrderBy(w => w.Price);
+                    break;
+                case "manufacturer":
+                    query = query.OrderBy(w => w.Manufacturer);
+                    break;
+                case "promotionSize":
+                    query = query.OrderBy(w => w.Price * (1 - w.DiscountPrice));
+                    break; ;
+                default:
+                    break;
+            }
+
+            return await query.ToListAsync();
         }
     }
 }

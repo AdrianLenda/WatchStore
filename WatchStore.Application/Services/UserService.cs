@@ -40,9 +40,9 @@ namespace WatchStore.Application.Services
 
         public async Task<User> UpdateUserAsync(User user)
         {
-            var updatedUser = await _userRepository.UpdateAsync(_mapper.Map<User>(user));
+            await _userRepository.UpdateAsync(_mapper.Map<User>(user));
             await _userRepository.SaveChangesAsync();
-            return _mapper.Map<User>(updatedUser);
+            return _mapper.Map<User>(user);
         }
 
         public async Task DeleteUserAsync(int userId)
