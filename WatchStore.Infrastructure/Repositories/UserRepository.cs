@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WatchStore.Domain;
+using WatchStore.Domain.Interfaces;
 
 namespace WatchStore.Infrastructure.Repositories
 {
@@ -9,6 +10,7 @@ namespace WatchStore.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<User> _dbSet;
+
 
         public UserRepository(ApplicationDbContext context)
         {
@@ -31,10 +33,11 @@ namespace WatchStore.Infrastructure.Repositories
             return await _dbSet.FirstOrDefaultAsync(u => u.Username == username);
         }
 
-        public async Task AddAsync(User user)
+        public async Task<User> AddAsync(User user)
         {
-            await _dbSet.AddAsync(user);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            return user;
         }
 
         public async Task UpdateAsync(User user)
@@ -46,6 +49,10 @@ namespace WatchStore.Infrastructure.Repositories
         public async Task DeleteAsync(User user)
         {
             _dbSet.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+        public async Task SaveChangesAsync()
+        {
             await _context.SaveChangesAsync();
         }
     }

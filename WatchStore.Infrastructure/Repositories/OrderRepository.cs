@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WatchStore.Domain;
+using WatchStore.Domain.Interfaces;
 
 namespace WatchStore.Infrastructure.Repositories
 {
@@ -55,5 +56,6 @@ namespace WatchStore.Infrastructure.Repositories
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
         }
+
     }
 }

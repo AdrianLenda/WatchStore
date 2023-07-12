@@ -5,6 +5,7 @@ using WatchStore.Application.DTOs;
 using WatchStore.Application.IServices;
 using WatchStore.Infrastructure;
 using WatchStore.Domain;
+using WatchStore.Domain.Interfaces;
 
 namespace WatchStore.Application.Services
 {
@@ -33,14 +34,13 @@ namespace WatchStore.Application.Services
 
         public async Task<User> CreateUserAsync(User user)
         {
-            var createdUser = await _userRepository.AddAsync(_mapper.Map<User>(user));
-            await _userRepository.SaveChangesAsync();
+            var createdUser = await _userRepository.AddAsync(user);
             return _mapper.Map<User>(createdUser);
         }
 
         public async Task<User> UpdateUserAsync(User user)
         {
-            var updatedUser = _userRepository.Update(_mapper.Map<User>(user));
+            var updatedUser = await _userRepository.UpdateAsync(_mapper.Map<User>(user));
             await _userRepository.SaveChangesAsync();
             return _mapper.Map<User>(updatedUser);
         }
@@ -48,8 +48,8 @@ namespace WatchStore.Application.Services
         public async Task DeleteUserAsync(int userId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
-            _userRepository.Delete(user);
-            await _userRepository.SaveChangesAsync();
+            await _userRepository.DeleteAsync(user);
         }
+
     }
 }

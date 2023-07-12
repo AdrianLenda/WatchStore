@@ -8,22 +8,17 @@ namespace WatchStore.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        // Pobierz wszystkich użytkowników
-        Task<IEnumerable<User>> GetAllAsync();
+        public interface IUserRepository
+        {
+            Task<IEnumerable<User>> GetAllAsync();
+            Task<User> GetByIdAsync(int id);
+            Task<User> GetByUsernameAsync(string username);
+            Task AddAsync(User user);
+            Task UpdateAsync(User user);
+            Task DeleteAsync(User user);
+            Task SaveChangesAsync(); 
 
-        // Pobierz użytkownika o danym ID
-        Task<User> GetByIdAsync(int id);
+        }
 
-        // Pobierz użytkownika o danej nazwie użytkownika
-        Task<User> GetByUsernameAsync(string username);
-
-        // Dodaj nowego użytkownika
-        Task AddAsync(User user);
-
-        // Aktualizuj istniejącego użytkownika
-        Task UpdateAsync(User user);
-
-        // Usuń użytkownika
-        Task DeleteAsync(User user);
     }
 }

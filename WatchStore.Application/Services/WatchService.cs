@@ -5,6 +5,7 @@ using WatchStore.Application.DTOs;
 using WatchStore.Application.IServices;
 using WatchStore.Infrastructure;
 using WatchStore.Domain;
+using WatchStore.Domain.Interfaces;
 
 namespace WatchStore.Application.Services
 {

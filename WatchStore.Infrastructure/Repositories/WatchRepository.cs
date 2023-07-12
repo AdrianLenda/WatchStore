@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WatchStore.Domain;
+using WatchStore.Domain.Interfaces;
 
 namespace WatchStore.Infrastructure.Repositories
 {
