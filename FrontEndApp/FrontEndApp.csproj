@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -14,6 +14,12 @@
   <ItemGroup>
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WatchStore.Application\WatchStore.Application.csproj" />
+    <ProjectReference Include="..\WatchStore.Domain\WatchStore.Domain.csproj" />
+    <ProjectReference Include="..\WatchStore.Infrastructure\WatchStore.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
