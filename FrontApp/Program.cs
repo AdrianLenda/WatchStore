@@ -1,4 +1,4 @@
-using FrontEndApp;
+using FrontApp;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
