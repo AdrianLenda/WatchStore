@@ -1,5 +1,56 @@
-﻿<h3>LoginPage</h3>
+﻿@page "/login"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject UserApiService UserService
+@using FrontEndApp.Services
+
+<h3>Login</h3>
+
+<EditForm Model="userForAuthentication" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Username">Username:</label>
+        <InputText id="Username" class="form-control" @bind-Value="userForAuthentication.Username" />
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Password:</label>
+        <InputText id="Password" type="password" class="form-control" @bind-Value="userForAuthentication.Password" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</EditForm>
+
+@if (loginResult != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @loginResult
+    </div>
+}
 
 @code {
+    private UserModel userForAuthentication = new UserModel();
+    private string loginResult;
 
+    private async Task HandleValidSubmit()
+    {
+        var result = await UserService.LoginUser(userForAuthentication);
+
+        if (result)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            loginResult = "Invalid username or password.";
+        }
+    }
+
+    public class UserModel
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
 }

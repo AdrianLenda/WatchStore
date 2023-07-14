@@ -1,5 +1,11 @@
-﻿<h3>Alert</h3>
+﻿@code {
+    [Parameter]
+    public string Message { get; set; }
 
-@code {
-
+    [Parameter]
+    public string AlertType { get; set; } = "info";
 }
+
+<div class="alert alert-@AlertType" role="alert">
+    @Message
+</div>

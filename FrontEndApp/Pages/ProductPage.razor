@@ -1,5 +1,49 @@
-﻿<h3>ProductPage</h3>
+﻿@page "/product/{Id}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>@watch.Brand @watch.Model</h3>
+
+<p>@watch.Description</p>
+
+<p>Price: @watch.Price</p>
+
+<img src="@watch.ImageUrl" alt="@watch.Model" />
+
+@if (watch.InStock)
+{
+    <p>In stock</p>
+}
+else
+{
+    <p>Out of stock</p>
+    <button @onclick="AskAboutAvailability">Ask about availability</button>
+}
 
 @code {
+    [Parameter]
+    public string Id { get; set; }
 
+    private Watch watch;
+
+    protected override async Task OnInitializedAsync()
+    {
+        watch = await Http.GetFromJsonAsync<Watch>($"api/watches/{Id}");
+    }
+
+    private void AskAboutAvailability()
+    {
+        // Here you can implement the functionality for asking about availability.
+        // For example, you can navigate to a new page or open a modal dialog.
+    }
+
+    public class Watch
+    {
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public bool InStock { get; set; }
+    }
 }

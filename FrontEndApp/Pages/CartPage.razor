@@ -1,5 +1,70 @@
-﻿<h3>CartPage</h3>
+﻿@page "/cart"
+@inject CartService CartService
+
+<h3>Your Cart</h3>
+
+@if (cartItems == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (cartItems.Length == 0)
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in cartItems)
+            {
+                <tr>
+                    <td>@item.Watch.Brand</td>
+                    <td>@item.Watch.Model</td>
+                    <td>@item.Watch.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.Watch.Price * item.Quantity)</td>
+                    <td><button class="btn btn-danger" @onclick="() => RemoveFromCart(item)">Remove</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
+    private CartItem[] cartItems;
 
+    protected override async Task OnInitializedAsync()
+    {
+        cartItems = await CartService.GetCartItems();
+    }
+
+    private async Task RemoveFromCart(CartItem item)
+    {
+        await CartService.RemoveFromCart(item);
+        cartItems = await CartService.GetCartItems();
+    }
+
+    public class CartItem
+    {
+        public Watch Watch { get; set; }
+        public int Quantity { get; set; }
+    }
+
+    public class Watch
+    {
+        public int Id { get; set; }
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public decimal Price { get; set; }
+    }
 }
