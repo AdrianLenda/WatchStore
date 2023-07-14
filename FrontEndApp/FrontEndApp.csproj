@@ -17,8 +17,4 @@
     <ProjectReference Include="..\WatchStore.Infrastructure\WatchStore.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
 </Project>

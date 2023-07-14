@@ -1,6 +1,6 @@
 ﻿namespace FrontEndApp.Models
 {
-    public class UserModel
+    public class UserLoginModel
     {
         public string Id { get; set; }
         public string Email { get; set; }
