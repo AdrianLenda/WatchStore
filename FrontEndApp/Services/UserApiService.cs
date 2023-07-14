@@ -15,34 +15,40 @@ namespace FrontEndApp.Services
             _http = http;
         }
 
-        public async Task<UserModel> GetUserByIdAsync(int userId)
+        public async Task<UserLoginModel> GetUserByIdAsync(int userId)
         {
-            return await _http.GetFromJsonAsync<UserModel>($"api/users/{userId}");
+            return await _http.GetFromJsonAsync<UserLoginModel>($"api/users/{userId}");
         }
 
-        public async Task<IList<UserModel>> GetAllUsersAsync()
+        public async Task<IList<UserLoginModel>> GetAllUsersAsync()
         {
-            return await _http.GetFromJsonAsync<IList<UserModel>>("api/users");
+            return await _http.GetFromJsonAsync<IList<UserLoginModel>>("api/users");
         }
 
-        public async Task<UserModel> CreateUserAsync(UserModel user)
+        public async Task<UserLoginModel> CreateUserAsync(UserLoginModel user)
         {
             var response = await _http.PostAsJsonAsync("api/users", user);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<UserModel>();
+            return await response.Content.ReadFromJsonAsync<UserLoginModel>();
         }
 
-        public async Task<UserModel> UpdateUserAsync(UserModel user)
+        public async Task<UserLoginModel> UpdateUserAsync(UserLoginModel user)
         {
             var response = await _http.PutAsJsonAsync($"api/users/{user.Id}", user);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<UserModel>();
+            return await response.Content.ReadFromJsonAsync<UserLoginModel>();
         }
 
         public async Task DeleteUserAsync(int userId)
         {
             var response = await _http.DeleteAsync($"api/users/{userId}");
             response.EnsureSuccessStatusCode();
+        }
+        public async Task<UserLoginModel> LoginUser(UserLoginModel user)
+        {
+            var response = await _http.PostAsJsonAsync("api/users/login", user);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<UserLoginModel>();
         }
 
     }

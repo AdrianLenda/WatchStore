@@ -3,6 +3,7 @@
 @inject NavigationManager NavigationManager
 @inject UserApiService UserService
 @using FrontEndApp.Services
+@using FrontEndApp.Models // Dodaj tę linię
 
 <h3>Login</h3>
 
@@ -31,13 +32,12 @@
 }
 
 @code {
-    private UserModel userForAuthentication = new UserModel();
+    private UserLoginModel userForAuthentication = new UserLoginModel(); // Używamy klasy UserLoginModel z FrontEndApp.Models
     private string loginResult;
 
     private async Task HandleValidSubmit()
     {
         var result = await UserService.LoginUser(userForAuthentication);
-
         if (result)
         {
             NavigationManager.NavigateTo("/");
@@ -46,11 +46,5 @@
         {
             loginResult = "Invalid username or password.";
         }
-    }
-
-    public class UserModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
     }
 }
